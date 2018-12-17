@@ -3,7 +3,7 @@ import re       # Regular Expressions
 
 # API Key from Open Weather Map
 
-APIKEY = "8f41886e4509ae7998aa2d428e05ce26"
+APIKEY = ""
 
 # Get location for API Call & send
 
