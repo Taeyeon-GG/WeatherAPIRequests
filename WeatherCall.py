@@ -4,6 +4,7 @@ import re       # Regular Expressions.
 # Get API Key from Open Weather Maps
 APIKEY = ""
 
+
 def getLocation(): # Prompt user for location.
     while(True):
 
@@ -12,14 +13,15 @@ def getLocation(): # Prompt user for location.
         if (location == ""): # Check if location string is empty, if so ask again.
             print("Please enter a location")
             continue
-        if (re.search(r'[^a-zA-Z]', location)): # Check if location string contains anything other than letters, if so ask again.
+        if (re.search(r'[^a-zA-Z,]', location)): # Check if location string contains anything other than letters, if so ask again.
             print("Please enter a location without numbers or symbols")
             continue
         else:
             location.replace(" ", "") # remove whitespace from location string.
             return location
 
-def sendRequest(APIKEY):    #Supply APIKEY as parameter
+
+def sendRequest(APIKEY): # Supply APIKEY as parameter
     return requests.get("http://api.openweathermap.org/data/2.5/weather?q=" + getLocation() + "&APPID=" + APIKEY) # Send API call with location parameter and API Key.
 
 
@@ -39,9 +41,3 @@ def getResults(json_results):
 
 
 getResults(sendRequest(APIKEY).json()) # Start process on file run.
-
-
-
-
-
-
