@@ -7,6 +7,11 @@ import requests  # HTTP Requests.
 APIKEY = sys.argv[1]
 
 
+class InvalidDataException(Exception):
+    # Do Exception stuff.
+    pass
+
+
 def get_location():
     while True:
         location = input("Location: ")
@@ -50,26 +55,33 @@ def get_results(json_results):
         temp_celsius = round(float(json_results["main"]["temp"]) - 273.15, 1)
 
     except KeyError:  # Handle error when API returns unusable or invalid data.
-        print("Was not able to find information on this location, did you spell it right?\n")
+        raise InvalidDataException
 
-        # Start process again.
-        display_data(get_results(send_request(APIKEY, get_location()).json()))
+    result_data = (loc_name, loc_id, temp_celsius, desc)  # Location data to be formatted.
 
-    else:
-        result_data = (loc_name, loc_id, temp_celsius, desc)  # Location data to be formatted.
-
-        return result_data
+    return result_data
 
 
 def display_data(tuple_loc_data):  # Take location data and format it for user.
 
-    if not tuple_loc_data:
-        return
-    else:
-        print(f"The Temperature in {tuple_loc_data[0]}, {tuple_loc_data[1]} "
-              f"is {tuple_loc_data[2]}℃. The description given is: '{tuple_loc_data[3]}'")
-        return
+    #if not tuple_loc_data:
+    #    return
+    #else:
+    print(f"The Temperature in {tuple_loc_data[0]}, {tuple_loc_data[1]} "
+          f"is {tuple_loc_data[2]}℃. The description given is: '{tuple_loc_data[3]}'")
+    return
 
 
-display_data(get_results(send_request(APIKEY, get_location()).json()))  # Start process on initialisation.
+def main():
+    while True:
+        try:
+            parsed_data = get_results(send_request(APIKEY, get_location()).json())
+            display_data(parsed_data)  # Start process on initialisation.
+            break
+        except InvalidDataException:
+            print("Was not able to find information on this location, did you spell it right?\n")
 
+
+
+if __name__ == '__main__':
+    main()
