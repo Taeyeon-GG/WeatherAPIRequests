@@ -3,7 +3,7 @@ Get the current temp and description for an area using Open Weather Map
 
 Supply OpenWeatherMaps API as command line argument
 
-Install and Launch using ```pipenv```
+Install and Launch using ```pipenv``` and ```python 3.7.2```
 
 `cd ./WeatherAPIRequests`
 
