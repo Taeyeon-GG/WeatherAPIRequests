@@ -12,7 +12,7 @@ class InvalidDataException(Exception):
 def get_api_key():
     try:
         key = sys.argv[1]
-        return key
+        return str(key)
     except IndexError:
         exit("Please launch with APIKEY Argument")
 
