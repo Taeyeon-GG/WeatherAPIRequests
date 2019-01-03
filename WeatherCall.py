@@ -3,14 +3,18 @@ import sys       # System Functions.
 
 import requests  # HTTP Requests.
 
-# Get API Key from Open Weather Maps, supplied as Command Line Argument.
-APIKEY = sys.argv[1]
-
 
 class InvalidDataException(Exception):
     # Do Exception stuff.
     pass
 
+
+def get_api_key():
+    try:
+        key = sys.argv[1]
+        return key
+    except:
+        exit("Please launch with APIKEY Argument")
 
 def get_location():
     while True:
@@ -64,9 +68,6 @@ def get_results(json_results):
 
 def display_data(tuple_loc_data):  # Take location data and format it for user.
 
-    #if not tuple_loc_data:
-    #    return
-    #else:
     print(f"The Temperature in {tuple_loc_data[0]}, {tuple_loc_data[1]} "
           f"is {tuple_loc_data[2]}℃. The description given is: '{tuple_loc_data[3]}'")
     return
@@ -75,12 +76,12 @@ def display_data(tuple_loc_data):  # Take location data and format it for user.
 def main():
     while True:
         try:
-            parsed_data = get_results(send_request(APIKEY, get_location()).json())
+            apikey = get_api_key()  # Get API Key from Open Weather Maps, supplied as Command Line Argument.
+            parsed_data = get_results(send_request(apikey, get_location()).json())
             display_data(parsed_data)  # Start process on initialisation.
             break
         except InvalidDataException:
             print("Was not able to find information on this location, did you spell it right?\n")
-
 
 
 if __name__ == '__main__':
