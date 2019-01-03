@@ -9,6 +9,6 @@ Install and Launch using ```pipenv```
 
 `pipenv install`
 
-`pipenv run python WeatherCall.py "apikeygoeshere"`
+`pipenv run python WeatherCall.py apikeygoeshere`
 
 Search for weather using a general location name, i.e ```London``` or ```Tokyo```, be more specific by adding a country code i.e ```London, UK``` or ```Tokyo ,JP```
