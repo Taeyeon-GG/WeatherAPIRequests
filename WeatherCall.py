@@ -13,8 +13,9 @@ def get_api_key():
     try:
         key = sys.argv[1]
         return key
-    except:
+    except IndexError:
         exit("Please launch with APIKEY Argument")
+
 
 def get_location():
     while True:
@@ -36,12 +37,12 @@ def get_location():
         return location
 
 
-def send_request(APIKEY, location):
+def send_request(apikey, location):
     # Send API call with location parameter and API Key.
     return requests.get("http://api.openweathermap.org/data/2.5/weather?q="
                         + location
                         + "&APPID="
-                        + APIKEY)
+                        + apikey)
 
 
 def get_results(json_results):
